@@ -95,7 +95,7 @@ public class MyMod : SonsMod
     private static void OnPlayerDied(object o)
     {
         LocalPlayer.Vitals.SetStrength(0);
-        LocalPlayer.Vitals.SetStrengthLevel(LocalPlayer.Vitals._currentStrengthLevel.ToString());
+        LocalPlayer.Vitals.SetStrengthLevel((LocalPlayer.Vitals._currentStrengthLevel - 1).ToString());
         LocalPlayer.Vitals.SetFullness(25);
         LocalPlayer.Vitals.SetHydration(25);
         LocalPlayer.Vitals.SetRest(25);
