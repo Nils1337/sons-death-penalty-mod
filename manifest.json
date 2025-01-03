@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/ToniMacaroni/RedLoader/main/MetadataSchema.json",
-  "id": "MyMod",
-  "author": "You",
+  "id": "DeathPenaltyMod",
+  "author": "Nils Axer",
   "version": "1.0.0",
-  "description": "A mod that does something.",
+  "description": "A mod that introduces death penalties.",
   "gameVersion": "1.0.0",
   "type": "Mod",
-  "url": "..."
+  "url": "https://github.com/Nils1337/sons-death-penalty-mod"
 }
