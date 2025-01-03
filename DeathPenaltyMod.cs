@@ -7,9 +7,9 @@ using Sons.Inventory;
 using TheForest.Player.Actions;
 using TheForest.Utils;
 
-namespace MyMod;
+namespace DeathPenaltyMod;
 
-public class MyMod : SonsMod
+public class DeathPenaltyMod : SonsMod
 {
     private static int[] _itemsToBeRemoved = new int[]
     {
@@ -18,7 +18,7 @@ public class MyMod : SonsMod
         ItemTools.Identifiers.Stone
     };
 
-    public MyMod()
+    public DeathPenaltyMod()
     {
         // Uncomment any of these if you need a method to run on a specific update loop.
         //OnUpdateCallback = MyUpdateMethod;
@@ -74,7 +74,7 @@ public class MyMod : SonsMod
     {
         // Do your mod initialization which involves game or sdk references here
         // This is for stuff like UI creation, event registration etc.
-        MyModUi.Create();
+        DeathPenaltyModUi.Create();
 
         EventRegistry.Register(GameEvent.LocalPlayerDied, (EventRegistry.SubscriberCallback)OnPlayerDied);
 
@@ -88,7 +88,7 @@ public class MyMod : SonsMod
         var original =
             typeof(PlayerRetrieveDroppedInventoryAction).GetMethod(nameof(PlayerRetrieveDroppedInventoryAction
                 .AddInventoryItems));
-        var prefix = typeof(MyMod).GetMethod(nameof(FillDroppedInventoryPatch));
+        var prefix = typeof(DeathPenaltyMod).GetMethod(nameof(FillDroppedInventoryPatch));
 
         PatchMethod(original, prefix);
 

@@ -1,8 +1,8 @@
-namespace MyMod;
+namespace DeathPenaltyMod;
 
 using static SUI.SUI;
 
-public class MyModUi
+public class DeathPenaltyModUi
 {
     public static void Create()
     {

@@ -1,7 +1,7 @@
 using RedLoader;
 using SUI;
 
-namespace MyMod;
+namespace DeathPenaltyMod;
 
 public static class Config
 {
