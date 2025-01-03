@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Construction;
+using Endnight.Extensions;
 using HarmonyLib;
 using Microsoft.VisualBasic.CompilerServices;
 using RedLoader;
@@ -23,7 +24,7 @@ public class MyMod : SonsMod
         ItemTools.Identifiers.Stick,
         ItemTools.Identifiers.Stone
     };
-
+    
     public MyMod()
     {
         // Uncomment any of these if you need a method to run on a specific update loop.
@@ -69,25 +70,26 @@ public class MyMod : SonsMod
     //     return false;
     // }
 
-    public static void FillDroppedInventoryPatch(ref IReadOnlyDictionary<int, ItemInstanceManager.Items> itemsMap)
+    public static void FillDroppedInventoryPatch(ref Il2CppSystem.Collections.Generic.IReadOnlyDictionary<int, ItemInstanceManager.Items> itemsMap)
     {
-        RLog.Msg("Dropped Inventory Items overwritten. itemsMap: " + itemsMap);
+        
+        var overwrittenMap = new Il2CppSystem.Collections.Generic.Dictionary<int, ItemInstanceManager.Items>();
 
-        itemsMap.TryGetValue(ItemTools.Identifiers.Stick, out var v);
+        var enumerator = LocalPlayer.Inventory._itemInstanceManager._itemsMap.GetEnumerator();
+
+        while (enumerator.MoveNext())
+        {
+            Il2CppSystem.Collections.Generic.KeyValuePair<int, ItemInstanceManager.Items> current = enumerator._current;
+            
+            if (!_itemsToBeRemoved.Contains(current.Key))
+            {
+                overwrittenMap.Add(current.Key, current.Value);
+            }
+        }
         
-        RLog.Msg("Value:  " + v);
+        itemsMap = new Il2CppSystem.Collections.Generic.IReadOnlyDictionary<int, ItemInstanceManager.Items>(overwrittenMap.Pointer);
         
-        // var overwrittenMap = new Dictionary<int, ItemInstanceManager.Items>();
-        //
-        // foreach (var keyValuePair in itemsMap)
-        // {
-        //     if (!_itemsToBeRemoved.Contains(keyValuePair.Key))
-        //     {
-        //         overwrittenMap.Add(keyValuePair.Key, keyValuePair.Value);
-        //     }
-        // }
-        //
-        // itemsMap = overwrittenMap;
+        RLog.Msg("Dropped Inventory Items overwritten");
     }
 
     private static void OnPlayerDied(object o)
